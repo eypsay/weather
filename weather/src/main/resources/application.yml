@@ -10,4 +10,20 @@ spring:
     import: optional:file:.env[.properties]
 weather-stack:
   api-url: http://api.weatherstack.com/current
-  api-key: ${API-KEY:default}
+  api-key: ${API_KEY:default}
+
+resilience4j:
+  ratelimiter:
+    instances:
+      basic:
+        limit-for-period: 10
+        limit-refresh-period: 1m
+        timeout-duration: 10s
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - "*"
+          - prometheus
